@@ -1,10 +1,10 @@
-const Pi = window.Pi;
-
 function bayarPi() {
   alert("Mulai");
 
+  const Pi = window.Pi;
+
   if (!Pi) {
-    alert("Pi SDK tidak terbaca!");
+    alert("❌ Pi SDK tidak terbaca");
     return;
   }
 
@@ -13,15 +13,21 @@ function bayarPi() {
   Pi.createPayment(
     {
       amount: 0.01,
-      memo: "Test",
+      memo: "Test Payment",
       metadata: {}
     },
     {
       onReadyForServerApproval: function(paymentId) {
-        alert("Masuk approval");
+        alert("✅ Masuk approval: " + paymentId);
+      },
+      onReadyForServerCompletion: function(paymentId, txid) {
+        alert("✅ Complete: " + txid);
+      },
+      onCancel: function(paymentId) {
+        alert("❌ Dibatalkan");
       },
       onError: function(error) {
-        alert("Error: " + JSON.stringify(error));
+        alert("❌ Error: " + JSON.stringify(error));
       }
     }
   );
