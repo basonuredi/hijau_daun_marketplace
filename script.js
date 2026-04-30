@@ -1,4 +1,3 @@
-JavaScript
 console.log("Marketplace siap");
 const Pi = window.Pi;
 Pi.init({ version: "2.0" });
