@@ -1,3 +1,7 @@
 function bayarPi() {
-  alert("Tombol terklik");
+  if (!window.Pi) {
+    alert("Pi SDK TIDAK ADA");
+  } else {
+    alert("Pi SDK ADA");
+  }
 }
