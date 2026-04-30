@@ -1,24 +1,38 @@
-console.log("Marketplace siap");
 const Pi = window.Pi;
+
 Pi.init({ version: "2.0" });
 
 function bayarPi() {
-  Pi.createPayment({
-    amount: 0.01,
-    memo: "Pembelian Cabai",
-    metadata: { productId: "cabai_1" }
-  }, {
-    onReadyForServerApproval: function(paymentId) {
-      console.log("Ready approval:", paymentId);
+  Pi.createPayment(
+    {
+      amount: 0.01,
+      memo: "Test",
+      metadata: {}
     },
-    onReadyForServerCompletion: function(paymentId, txid) {
-      console.log("Ready completion:", paymentId, txid);
-    },
-    onCancel: function(paymentId) {
-      console.log("Dibatalkan:", paymentId);
-    },
-    onError: function(error) {
-      console.error(error);
+    {
+      onReadyForServerApproval: function(paymentId) {
+        fetch('/api/approve', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ paymentId })
+        });
+      },
+
+      onReadyForServerCompletion: function(paymentId, txid) {
+        fetch('/api/complete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ paymentId, txid })
+        });
+      },
+
+      onCancel: function(paymentId) {
+        alert("Dibatalkan");
+      },
+
+      onError: function(error) {
+        alert("Error: " + error);
+      }
     }
-  });
+  );
 }
