@@ -1,46 +1,39 @@
 const Pi = window.Pi;
 
+if (Pi) {
+  Pi.init({ version: "2.0" });
+
+  Pi.authenticate([], function(auth) {
+    console.log("Login sukses");
+  }, function(error) {
+    console.log("Login gagal");
+  });
+}
+
 function bayarPi() {
   alert("Mulai");
 
   if (!Pi) {
-    alert("❌ Pi SDK tidak aktif");
+    alert("❌ SDK tidak aktif");
     return;
   }
-
-  Pi.init({ version: "2.0" });
 
   Pi.createPayment(
     {
       amount: 0.01,
-      memo: "Test Payment Hijau Daun",
-      metadata: { produk: "test" }
+      memo: "Test Payment",
+      metadata: {}
     },
     {
       onReadyForServerApproval: function(paymentId) {
-        alert("➡️ Masuk approval: " + paymentId);
-
-        fetch('/api/approve', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ paymentId })
-        });
+        alert("➡️ Approval: " + paymentId);
       },
-
       onReadyForServerCompletion: function(paymentId, txid) {
-        alert("✅ Sukses TX: " + txid);
-
-        fetch('/api/complete', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ paymentId, txid })
-        });
+        alert("✅ TX: " + txid);
       },
-
-      onCancel: function(paymentId) {
+      onCancel: function() {
         alert("❌ Dibatalkan");
       },
-
       onError: function(error) {
         alert("❌ Error: " + JSON.stringify(error));
       }
