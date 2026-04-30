@@ -1,8 +1,14 @@
 const Pi = window.Pi;
-Pi.init({ version: "2.0" });
 
 function bayarPi() {
   alert("Mulai");
+
+  if (!Pi) {
+    alert("Pi SDK tidak terbaca!");
+    return;
+  }
+
+  Pi.init({ version: "2.0" });
 
   Pi.createPayment(
     {
@@ -15,7 +21,7 @@ function bayarPi() {
         alert("Masuk approval");
       },
       onError: function(error) {
-        alert("ERROR: " + JSON.stringify(error));
+        alert("Error: " + JSON.stringify(error));
       }
     }
   );
