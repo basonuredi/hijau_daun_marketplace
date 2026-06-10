@@ -21,36 +21,42 @@ function bayarPi() {
     alert("SDK siap");
 
     Pi.authenticate(
-      ["payments"],
-      function(auth) {
-        alert("LOGIN BERHASIL");
+  ["payments"],
+  async function(auth) {
 
-        Pi.createPayment(
-          {
-            amount: 0.01,
-            memo: "Test Payment",
-            metadata: {
-              test: true
-            }
-          },
-          {
-            onReadyForServerApproval: function(paymentId) {
-              alert("APPROVAL: " + paymentId);
-            },
+    alert("LOGIN BERHASIL");
 
-            onReadyForServerCompletion: function(paymentId, txid) {
-              alert("TXID: " + txid);
-            },
+    try {
 
-            onCancel: function() {
-              alert("DIBATALKAN");
-            },
+      alert("MEMBUAT PAYMENT");
 
-            onError: function(error) {
-              alert("PAYMENT ERROR: " + JSON.stringify(error));
-            }
-          }
-        );
+      const payment = await Pi.createPayment({
+        amount: 0.01,
+        memo: "Hijau Daun Test",
+        metadata: {
+          product: "test"
+        }
+      });
+
+      alert("PAYMENT DIBUAT");
+
+      console.log(payment);
+
+    } catch(err) {
+
+      alert("PAYMENT ERROR: " + JSON.stringify(err));
+
+    }
+
+  },
+
+  function(error) {
+
+    alert("AUTH ERROR: " + JSON.stringify(error));
+
+  }
+);
+        
       },
 
       function(error) {
