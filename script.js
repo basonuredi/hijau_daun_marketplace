@@ -14,12 +14,16 @@ function bayarPi() {
 
   alert("SDK siap");
 
-  Pi.authenticate(
-    ['payments'],
-    function(auth) {
-
-      alert("Login OK");
-
+  
+Pi.authenticate(
+  ['username', 'payments'],
+  function(auth) {
+    alert("Login OK");
+  },
+  function(error) {
+    alert("Auth Error: " + JSON.stringify(error));
+  }
+);
       Pi.createPayment(
         {
           amount: 0.01,
