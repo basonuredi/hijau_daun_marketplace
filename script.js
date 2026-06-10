@@ -21,50 +21,44 @@ function bayarPi() {
     alert("SDK siap");
 
     Pi.authenticate(
-  ["payments"],
-  async function(auth) {
+      ["payments"],
+      async function(auth) {
 
-    alert("LOGIN BERHASIL");
+        alert("LOGIN BERHASIL");
 
-    try {
+        try {
 
-      alert("MEMBUAT PAYMENT");
+          alert("MEMBUAT PAYMENT");
 
-      const payment = await Pi.createPayment({
-        amount: 0.01,
-        memo: "Hijau Daun Test",
-        metadata: {
-          product: "test"
+          const payment = await Pi.createPayment({
+            amount: 0.01,
+            memo: "Hijau Daun Test",
+            metadata: {
+              product: "test"
+            }
+          });
+
+          alert("PAYMENT DIBUAT");
+          console.log(payment);
+
+        } catch(err) {
+
+          alert("PAYMENT ERROR: " + err.message);
+
         }
-      });
 
-      alert("PAYMENT DIBUAT");
-
-      console.log(payment);
-
-    } catch(err) {
-
-      alert("PAYMENT ERROR: " + JSON.stringify(err));
-
-    }
-
-  },
-
-  function(error) {
-
-    alert("AUTH ERROR: " + JSON.stringify(error));
-
-  }
-);
-        
       },
 
       function(error) {
+
         alert("AUTH ERROR: " + JSON.stringify(error));
+
       }
     );
 
   } catch (e) {
+
     alert("JS ERROR: " + e.message);
+
   }
 }
