@@ -14,6 +14,7 @@ function bayarPi() {
 
   alert("SDK siap");
 
+alert("Mulai Auth"); 
   
 Pi.authenticate(
   ['username', 'payments'],
@@ -24,6 +25,9 @@ Pi.authenticate(
     alert("Auth Error: " + JSON.stringify(error));
   }
 );
+
+  alert("Perintah Auth dikirim");
+  
       Pi.createPayment(
         {
           amount: 0.01,
