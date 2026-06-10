@@ -21,10 +21,14 @@ function bayarPi() {
     alert("SDK siap");
 
     Pi.authenticate(
-      ["payments"],
-      async function(auth) {
-
-        alert("LOGIN BERHASIL");
+  [],
+  function(auth) {
+    alert("LOGIN BERHASIL");
+  },
+  function(error) {
+    alert("AUTH ERROR: " + JSON.stringify(error));
+  }
+);
 
         try {
 
