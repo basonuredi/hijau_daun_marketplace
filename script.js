@@ -21,7 +21,7 @@ function bayarPi() {
     alert("SDK siap");
 
     Pi.authenticate(
-      [],
+      ["username", "payments"],
       function(auth) {
 
         alert("LOGIN BERHASIL");
