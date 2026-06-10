@@ -1,64 +1,64 @@
 function bayarPi() {
 
-  const Pi = window.Pi;
+  alert("Tombol ditekan");
 
-  if (!Pi) {
-    alert("Pi SDK tidak ditemukan");
-    return;
-  }
+  try {
 
-  Pi.init({
-    version: "2.0",
-    sandbox: false
-  });
+    const Pi = window.Pi;
 
-  alert("SDK siap");
-
-alert("Mulai Auth"); 
-  
-Pi.authenticate(
-  ['username', 'payments'],
-  function(auth) {
-    alert("Login OK");
-  },
-  function(error) {
-    alert("Auth Error: " + JSON.stringify(error));
-  }
-);
-
-  alert("Perintah Auth dikirim");
-  
-      Pi.createPayment(
-        {
-          amount: 0.01,
-          memo: "Hijau Daun Test",
-          metadata: {
-            item: "test"
-          }
-        },
-        {
-          onReadyForServerApproval: function(paymentId) {
-            alert("Approval: " + paymentId);
-          },
-
-          onReadyForServerCompletion: function(paymentId, txid) {
-            alert("TXID: " + txid);
-          },
-
-          onCancel: function() {
-            alert("Dibatalkan");
-          },
-
-          onError: function(error) {
-            alert(JSON.stringify(error));
-          }
-        }
-      );
-
-    },
-
-    function(error) {
-      alert("Auth Error: " + JSON.stringify(error));
+    if (!Pi) {
+      alert("Pi tidak ditemukan");
+      return;
     }
-  );
+
+    alert("Pi ditemukan");
+
+    Pi.init({
+      version: "2.0",
+      sandbox: false
+    });
+
+    alert("SDK siap");
+
+    Pi.authenticate(
+      ["payments"],
+      function(auth) {
+        alert("LOGIN BERHASIL");
+
+        Pi.createPayment(
+          {
+            amount: 0.01,
+            memo: "Test Payment",
+            metadata: {
+              test: true
+            }
+          },
+          {
+            onReadyForServerApproval: function(paymentId) {
+              alert("APPROVAL: " + paymentId);
+            },
+
+            onReadyForServerCompletion: function(paymentId, txid) {
+              alert("TXID: " + txid);
+            },
+
+            onCancel: function() {
+              alert("DIBATALKAN");
+            },
+
+            onError: function(error) {
+              alert("PAYMENT ERROR: " + JSON.stringify(error));
+            }
+          }
+        );
+      },
+
+      function(error) {
+        alert("AUTH ERROR: " + JSON.stringify(error));
+      }
+    );
+
+  } catch (e) {
+    alert("JS ERROR: " + e.message);
+  }
 }
