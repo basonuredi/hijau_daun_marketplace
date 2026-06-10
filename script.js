@@ -21,38 +21,12 @@ function bayarPi() {
     alert("SDK siap");
 
     Pi.authenticate(
-  [],
-  function(auth) {
-    alert("LOGIN BERHASIL");
-  },
-  function(error) {
-    alert("AUTH ERROR: " + JSON.stringify(error));
-  }
-);
+      [],
+      function(auth) {
 
-        try {
-
-          alert("MEMBUAT PAYMENT");
-
-          const payment = await Pi.createPayment({
-            amount: 0.01,
-            memo: "Hijau Daun Test",
-            metadata: {
-              product: "test"
-            }
-          });
-
-          alert("PAYMENT DIBUAT");
-          console.log(payment);
-
-        } catch(err) {
-
-          alert("PAYMENT ERROR: " + err.message);
-
-        }
+        alert("LOGIN BERHASIL");
 
       },
-
       function(error) {
 
         alert("AUTH ERROR: " + JSON.stringify(error));
