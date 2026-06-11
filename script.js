@@ -1,7 +1,5 @@
 async function bayarPi() {
 
-  alert("Mulai");
-
   try {
 
     const Pi = window.Pi;
@@ -22,11 +20,23 @@ async function bayarPi() {
 
     alert("LOGIN BERHASIL");
 
-    console.log(auth);
+    const payment = await Pi.createPayment({
+      amount: 0.01,
+      memo: "Hijau Daun Test Payment",
+      metadata: {
+        product: "test"
+      }
+    });
+
+    alert("PAYMENT DIBUAT");
+
+    console.log(payment);
 
   } catch (e) {
 
     alert("ERROR: " + JSON.stringify(e));
+
+    console.error(e);
 
   }
 
